@@ -1,0 +1,1 @@
+/bin/sh -c "sleep 35 ; python3 /home/dest/dest_main.py" &
