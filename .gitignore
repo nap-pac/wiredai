@@ -3,3 +3,6 @@
 
 # databases
 *.db
+
+# CSV files
+*.csv
