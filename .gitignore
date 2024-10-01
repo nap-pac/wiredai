@@ -1,0 +1,5 @@
+# kismet logs
+*.kismet
+
+# databases
+*.db
