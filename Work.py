@@ -70,4 +70,4 @@ features_df = merged_df[expected_columns]
 # Write the features to a CSV file
 features_df.to_csv('extracted_features.csv', index=False)
 
-print("Features extracted and written to extracted_features.csv")
+print("Features extracted and written")
