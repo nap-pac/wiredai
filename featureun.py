@@ -60,6 +60,9 @@ merged_df = pd.merge(devices_df, locations_df, on='mac', how='left')
 merged_df['lat'] = merged_df['lat'].fillna(method='ffill')
 merged_df['lon'] = merged_df['lon'].fillna(method='ffill')
 
+# Remove rows where latitude or longitude is still NaN (if the first entries were NaN)
+merged_df = merged_df.dropna(subset=['lat', 'lon'])
+
 # Check the columns of the merged DataFrame
 print(merged_df.columns)
 # The assumption being that they would have been seen at similar times.

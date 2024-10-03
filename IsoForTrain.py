@@ -1,6 +1,5 @@
 # Libraries
 import pandas as pd
-import sklearn
 import numpy as np
 import joblib
 #rest is need for AI
