@@ -11,7 +11,7 @@ fileName = 'extracted_features.csv'
 data = pd.read_csv(fileName)
 
 # Select Features
-features = data.iloc[:, 1].values
+features = data.iloc[:, 1:].values
 scaler = MinMaxScaler()
 normalizedData = scaler.fit_transform(features)
 
