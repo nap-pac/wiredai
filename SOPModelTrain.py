@@ -25,3 +25,6 @@ som.train(normalizedData, num_iteration=1000)
 # Save the model
 with open('SOMmodel.pk1', 'wb') as f:
     pickle.dump(som, f)
+
+with open('scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
