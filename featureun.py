@@ -56,15 +56,18 @@ locations_df.insert(6, "hour_of_dat", locations_df['timestamp'].dt.dayofweek, Tr
 # Merge DataFrames based on 'mac'
 merged_df = pd.merge(devices_df, locations_df, on='mac', how='left')
 
+# Forward fill the missing lat and long
+merged_df['lat'] = merged_df['lat'].fillna(method='ffill')
+merged_df['lon'] = merged_df['lon'].fillna(method='ffill')
+
 # Check the columns of the merged DataFrame
 print(merged_df.columns)
-
-# Ensure all expected columns are present before selecting features
-expected_columns = ['mac', 'hour_of_day', 'day_of_week', 'times_seen']
-if 'lat' in merged_df.columns and 'lon' in merged_df.columns: # Not everything has a longitude latitude seen from the kismet data
-    expected_columns.extend(['lat', 'lon'])
+# The assumption being that they would have been seen at similar times.
+# This is done since the models cannot work with NaN or Null values
+# This can't be fixed device side as sometimes the GPS will drop out
 
 # Create the feature DataFrame with available columns
+expected_columns = ['mac', 'hour_of_day', 'day_of_week', 'times_seen', 'lat', 'lon']
 features_df = merged_df[expected_columns]
 
 # Write the features to a CSV file
