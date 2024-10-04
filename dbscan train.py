@@ -1,7 +1,7 @@
 # Libraries
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import pickle
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import DBSCAN
 
@@ -27,7 +27,7 @@ clusters = dbscan.fit_predict(featuresScaled)
 data['Cluster'] = clusters
 
 # Analyze the clusters
-cluster_analysis = data.groupby('Cluster').agg(
+clusterAnalysis = data.groupby('Cluster').agg(
     DeviceCount=('MAC_Address', 'nunique'),
     AverageLatitude=('Latitude', 'mean'),
     AverageLongitude=('Longitude', 'mean'),
@@ -35,13 +35,8 @@ cluster_analysis = data.groupby('Cluster').agg(
 ).reset_index()
 
 # Print the cluster analysis results
-print(cluster_analysis)
+print(clusterAnalysis)
 
-# Visualize the clusters
-plt.figure(figsize=(10, 6))
-plt.scatter(data['Longitude'], data['Latitude'], c=data['Cluster'], cmap='viridis', s=10)
-plt.title('DBSCAN Clustering of Device Locations')
-plt.xlabel('Longitude')
-plt.ylabel('Latitude')
-plt.colorbar(label='Cluster Label')
-plt.show()
+# Save the model
+with open('DBSModel.pk1', 'wb') as f:
+    pickle.dump(dbscan, f)
