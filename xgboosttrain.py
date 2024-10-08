@@ -29,7 +29,7 @@ def main():
     data['devmac_encoded'] = le.fit_transform(data['devmac'])
 
     # Calculate distance between device location and a reference point (your location)
-    my_lat, my_lon = 40.7128, -74.0060  # Example reference point (latitude/longitude)
+    my_lat, my_lon = 40.7128, -74.0060 # Will need to be changed to a live value eventually
 
     data['distance_to_me'] = data.apply(lambda row: haversine(row['lat'], row['lon'], my_lat, my_lon), axis=1)
 
