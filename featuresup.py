@@ -21,7 +21,7 @@ def valid_mac_adddress(macList):
 
 def main():
     # Connect to the SQLite database
-    dbPath = 'Kismet-20240819-06-29-51-1.kismet' # Relative Path, also .kismet files are just sqlite files
+    dbPath = 'Kismet-20240816-13-00-12-1.kismet' # Relative Path, also .kismet files are just sqlite files
     # don't forget to add .kismet end otherwise it won't open
     conn = sqlite3.connect(dbPath)
 
