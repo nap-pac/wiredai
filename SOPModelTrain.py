@@ -23,7 +23,7 @@ som = MiniSom(som_size, som_size, normalizedData.shape[1], sigma=1.0, learning_r
 som.train(normalizedData, num_iteration=1000)
 
 # Save the model
-with open('SOMmodel.pk1', 'wb') as f:
+with open('SOMmodel.pkl', 'wb') as f:
     pickle.dump(som, f)
 
 with open('scaler.pkl', 'wb') as f:

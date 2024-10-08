@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 # Load the scaed model and scalar
-with open('som_model.pkl', 'rb') as f:
+with open('SOMmodel.pk1', 'rb') as f:
     som = pickle.load(f)
 
 with open('scaler.pkl', 'rb') as f:

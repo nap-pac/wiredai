@@ -24,6 +24,6 @@ model = IsolationForest(contamination=0.1, random_state=42)
 model.fit(scaled_features)
 
 # Save Model
-joblib.dump(model, 'isolation_forest_model.pk1')
+joblib.dump(model, 'isolation_forest_model.pkl')
 
 print("Model has been trained and saved")
