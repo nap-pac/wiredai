@@ -1,7 +1,6 @@
 # Libraries
 import pandas as pd
-import numpy as np
-import pickle
+import joblib
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import DBSCAN
 
@@ -34,9 +33,10 @@ clusterAnalysis = data.groupby('Cluster').agg(
     TotalTimesSeen=('Times_Seen', 'sum')
 ).reset_index()
 
-# Print the cluster analysis results
-print(clusterAnalysis)
+# Save the DBSCAN model
+model_filename = 'dbscan_model.joblib'
+joblib.dump(dbscan, model_filename)
 
-# Save the model
-with open('DBSModel.pk1', 'wb') as f:
-    pickle.dump(dbscan, f)
+# Save the scaler used for scaling features
+scaler_filename = 'scaler.joblib'
+joblib.dump(scaler, scaler_filename)

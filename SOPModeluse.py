@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 # Load the scaed model and scalar
-with open('SOMmodel.pk1', 'rb') as f:
+with open('SOMmodel.pkl', 'rb') as f:
     som = pickle.load(f)
 
 with open('scaler.pkl', 'rb') as f:
     scaler = pickle.load(f)
 
 # Load New Data
-data = pd.read_csv('testfeatures.csv')  # Replace with the path to your new data
+data = pd.read_csv('test_features.csv')  # Replace with the path to your new data
 
 # Select relevant features
 features = data.iloc[:, 1:].values  # Adjust according to your dataset structure
