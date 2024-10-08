@@ -38,5 +38,7 @@ for (i, j), count in bmu_counts.items():
 
 plt.imshow(bmu_matrix, cmap='hot', interpolation='nearest')
 plt.title('New Data BMU Counts on SOM Grid')
+plt.xlabel('Neuron X Index')  # Label for the X-axis
+plt.ylabel('Neuron Y Index')  # Label for the Y-axis
 plt.colorbar(label='Number of Observations')
 plt.show()
