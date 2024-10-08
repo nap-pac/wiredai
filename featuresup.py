@@ -59,14 +59,16 @@ def main():
         periodSeen.append(result)
 
     extDevRows['period'] = periodSeen
-    extDevRows.drop('first_time', axis=1, inplace=True)
-    extDevRows.drop('last_time', axis=1, inplace=True)
+    extDevRows.drop(['first_time', 'last_time'], axis=1, inplace=True)
 
     # Combine both dataframes of wifi and bluetooth
     combineData = pd.concat([extPackRows, extDataRows])
 
     # Attached period seen to both bluetooth and wifi
     combineDataMerge = pd.merge(combineData, extDevRows, on='devmac', how='left')
+
+    # Drop rows where 'period', 'lat', or 'lon' are NaN
+    combineDataMerge.dropna(subset=['period', 'lat', 'lon'], inplace=True)
     
     # Get user input
     userInput = input("Enter MAC address sperated by commas or spaces: ")
@@ -76,7 +78,7 @@ def main():
     validMacList = valid_mac_adddress(macList)
 
     # Add new label row
-    combineDataMerge['label'] = np.nan # Fill with black values since we need user input to find the stalking device
+    combineDataMerge['label'] = np.nan  # Initially fill with NaN values
 
     # Find stalker MAC and Label devices
     combineDataMerge['label'] = combineDataMerge['devmac'].apply(lambda x: 1 if x in validMacList else 0)
@@ -84,7 +86,6 @@ def main():
 
     # Write and append to a .CSV
     csvDataFile = 'data.csv'
-
 
     combineDataMerge.to_csv(csvDataFile, index=False, mode='a', header=not pd.io.common.file_exists(csvDataFile))
 
