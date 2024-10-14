@@ -32,11 +32,11 @@ dest_sub.mkdir(parents=True, exist_ok=True)
 
 db_path = '/home/' + user + '*.kismet' # changed from checking kismet_logs so the specific kismet file can be chosen
 # Find Newest DB file
-list_of_files = glob.glob(db_path)
-latest_file = max(list_of_files, key=os.path.getctime)
-print ("Pulling data from: {}".format(latest_file))
-con = sqlite3.connect(latest_file) ## kismet DB to point at
-if os.path.isfile(latest_file):
+#list_of_files = glob.glob(db_path)
+#latest_file = max(list_of_files, key=os.path.getctime)
+#print ("Pulling data from: {}".format(latest_file))
+con = sqlite3.connect(db_path) ## kismet DB to point at
+if os.path.isfile(db_path):
     print("File exists")# check that it exists
 
 # Create DB file for storing lists and basic device info
