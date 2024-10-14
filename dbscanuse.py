@@ -1,8 +1,8 @@
+# Libraries
 import pandas as pd
 import joblib
-from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
-
+from sklearn.preprocessing import StandardScaler
 
 # Load the DBSCAN model
 model_filename = 'dbscan_model.joblib'
@@ -40,6 +40,7 @@ cluster_analysis = data.groupby('Cluster').agg(
 
 # Print the cluster analysis results
 print(cluster_analysis)
+
 
 # Visualize the clusters
 plt.figure(figsize=(10, 6))

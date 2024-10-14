@@ -11,17 +11,18 @@ data = pd.read_csv(fileName)
 print(data.head())
 
 # Select features for the model
-features = ['hour_of_day', 'day_of_week', 'times_seen', 'lat', 'lon']
+data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
+features = ['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
 
 # Scale the features
 scaler = StandardScaler()
-scaled_features = scaler.fit_transform(data[features])
+scaledFeatures = scaler.fit_transform(data[features])
 
 # Initialize the Isolation Forest model
 model = IsolationForest(contamination=0.1, random_state=42)
 
 # Fit the model to the data
-model.fit(scaled_features)
+model.fit(scaledFeatures)
 
 # Save Model
 joblib.dump(model, 'isolation_forest_model.pkl')
