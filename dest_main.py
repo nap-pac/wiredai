@@ -30,7 +30,7 @@ print(user)
 dest_sub = pathlib.Path('/home/' + user + '/dest_log')
 dest_sub.mkdir(parents=True, exist_ok=True)
 
-db_path = '/home/' + user + '/kismet_use/*.kismet'
+db_path = '/home/' + user + '*.kismet' # changed from checking kismet_logs so the specific kismet file can be chosen
 # Find Newest DB file
 list_of_files = glob.glob(db_path)
 latest_file = max(list_of_files, key=os.path.getctime)

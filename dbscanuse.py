@@ -41,7 +41,6 @@ cluster_analysis = data.groupby('Cluster').agg(
 # Print the cluster analysis results
 print(cluster_analysis)
 
-
 # Visualize the clusters
 plt.figure(figsize=(10, 6))
 plt.scatter(data['Longitude'], data['Latitude'], c=data['Cluster'], cmap='viridis', s=10)
