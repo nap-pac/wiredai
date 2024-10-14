@@ -252,5 +252,5 @@ while run:
                 dest_log.write("Total Locations: " + str(rows[0][0]) + "\n")
                     
         time_count += 1
-        testGet = get_ssid('60:22:32:14:AE:86')
+        testGet = get_ssid('F4:02:28:BB:DD:FB')
         print(testGet)
