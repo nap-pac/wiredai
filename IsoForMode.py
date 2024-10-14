@@ -15,6 +15,9 @@ print(data.head())
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
 features = ['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
 
+# Save original latitude and longitude for plotting later
+original_lat_long = data[['Latitude', 'Longitude']].copy()
+
 # Scale the features
 scaler = StandardScaler()
 scaledFeatures = scaler.fit_transform(data[features])
@@ -28,20 +31,21 @@ data['anomaly'] = model.predict(scaledFeatures)
 # Convert anomaly labels (-1 for anomaly, 1 for normal) to a more intuitive format (0 for normal, 1 for anomaly)
 data['anomaly'] = data['anomaly'].apply(lambda x: 1 if x == -1 else 0)
 
-# Create a scatter plot to visualize the anomalies
-plt.figure(figsize=(10, 6))
-
-# Scatter plot of Main Cluster
+# Scatter plot of Main Cluster (Normal points)
 normal = data[data['anomaly'] == 0]
-plt.scatter(normal['Latitude'], normal['Longitude'], c='blue', label='Main Cluster', alpha=0.5)
+plt.scatter(original_lat_long.loc[normal.index, 'Longitude'], 
+            original_lat_long.loc[normal.index, 'Latitude'], 
+            c='blue', label='Main Cluster', alpha=0.5)
 
-# Scatter plot of Anomolous
+# Scatter plot of Anomalous points (Outliers)
 anomalies = data[data['anomaly'] == 1]
-plt.scatter(anomalies['Latitude'], anomalies['Longitude'], c='red', label='Benign', alpha=0.5)
+plt.scatter(original_lat_long.loc[anomalies.index, 'Longitude'], 
+            original_lat_long.loc[anomalies.index, 'Latitude'], 
+            c='red', label='Benign', alpha=0.5)
 
 # Adding labels and title
-plt.xlabel('Latitude')
-plt.ylabel('Longitude')
-plt.title('Anomaly Detection in Wi-Fi Data')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.title('Anomaly Detection in Wi-Fi Data (True Latitude and Longitude)')
 plt.legend()
 plt.savefig('plot.png', dpi=300)

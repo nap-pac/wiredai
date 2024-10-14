@@ -25,14 +25,6 @@ clusters = dbscan.fit_predict(featuresScaled)
 # Add cluster labels to the original dataset
 data['Cluster'] = clusters
 
-# Analyze the clusters
-clusterAnalysis = data.groupby('Cluster').agg(
-    DeviceCount=('MAC_Address', 'nunique'),
-    AverageLatitude=('Latitude', 'mean'),
-    AverageLongitude=('Longitude', 'mean'),
-    TotalTimesSeen=('Times_Seen', 'sum')
-).reset_index()
-
 # Save the DBSCAN model
 model_filename = 'dbscan_model.joblib'
 joblib.dump(dbscan, model_filename)

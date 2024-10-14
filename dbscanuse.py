@@ -21,6 +21,9 @@ data = pd.read_csv(filename)
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
 features = data[['Latitude', 'Longitude', 'Times_Seen']]
 
+# Save the original latitude and longitude for plotting
+original_lat_long = data[['Latitude', 'Longitude']].copy()
+
 # Scale the new features using the loaded scaler
 featureScaled = scaler.transform(features)
 
@@ -30,22 +33,28 @@ clusters = dbscan.fit_predict(featureScaled)
 # Add the cluster labels to the new data
 data['Cluster'] = clusters
 
-# Analyze the clusters
-cluster_analysis = data.groupby('Cluster').agg(
-    Device_Count=('MAC_Address', 'nunique'),
-    Average_Latitude=('Latitude', 'mean'),
-    Average_Longitude=('Longitude', 'mean'),
-    Total_Times_Seen=('Times_Seen', 'sum')
-).reset_index()
+# Separate data into clustered points and noise (cluster = -1)
+clustered_data = data[data['Cluster'] != -1]
+noise_data = data[data['Cluster'] == -1]
 
-# Print the cluster analysis results
-print(cluster_analysis)
+# Use the original latitude and longitude for plotting
+clustered_lat_long = original_lat_long.iloc[clustered_data.index]
+noise_lat_long = original_lat_long.iloc[noise_data.index]
 
-# Visualize the clusters
+# Visualize the clusters with true latitude and longitude
 plt.figure(figsize=(10, 6))
-plt.scatter(data['Longitude'], data['Latitude'], c=data['Cluster'], cmap='viridis', s=10)
-plt.title('DBSCAN Clustering of Device Locations')
+
+# Plot clustered points using true latitude and longitude
+plt.scatter(clustered_lat_long['Longitude'], clustered_lat_long['Latitude'], 
+            c=clustered_data['Cluster'], cmap='viridis', s=10, label='Clustered')
+
+# Plot noise points (outliers detected by DBSCAN)
+plt.scatter(noise_lat_long['Longitude'], noise_lat_long['Latitude'], 
+            c='r', label='Noise', s=10)
+
+plt.title('DBSCAN Clustering with True Latitude and Longitude')
 plt.xlabel('Longitude')
 plt.ylabel('Latitude')
+plt.legend()
 plt.colorbar(label='Cluster Label')
 plt.show()
