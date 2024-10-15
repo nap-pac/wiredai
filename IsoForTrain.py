@@ -12,11 +12,11 @@ print(data.head())
 
 # Select features for the model
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-features = ['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
 
 # Scale the features
 scaler = StandardScaler()
-scaledFeatures = scaler.fit_transform(data[features])
+scaledFeatures = scaler.fit_transform(features)
 
 # Initialize the Isolation Forest model
 model = IsolationForest(contamination=0.1, random_state=42)

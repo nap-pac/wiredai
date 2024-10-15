@@ -19,7 +19,7 @@ data = pd.read_csv(filename)
 # Preprocess the new data (assuming it has the same structure as before)
 # Rename columns
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-features = data[['Latitude', 'Longitude', 'Times_Seen']]
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
 
 # Save the original latitude and longitude for plotting
 original_lat_long = data[['Latitude', 'Longitude']].copy()

@@ -12,7 +12,7 @@ data = pd.read_csv(filePath)
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
 
 # Select relevant features for clustering
-features = data[['Latitude', 'Longitude', 'Times_Seen']]
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
 
 # Scale the features
 scaler = StandardScaler()

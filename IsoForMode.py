@@ -13,14 +13,14 @@ print(data.head())
 
 # Select features for the model
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-features = ['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
 
 # Save original latitude and longitude for plotting later
 original_lat_long = data[['Latitude', 'Longitude']].copy()
 
 # Scale the features
 scaler = StandardScaler()
-scaledFeatures = scaler.fit_transform(data[features])
+scaledFeatures = scaler.fit_transform(features)
 
 # Import Model
 model = joblib.load('isolation_forest_model.pkl')

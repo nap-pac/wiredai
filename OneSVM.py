@@ -11,7 +11,7 @@ print(data.head())
 
 # Select features for the model
 data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-features = ['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
 
 # Scale the data
 scaler = StandardScaler()
