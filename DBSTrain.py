@@ -8,18 +8,16 @@ from sklearn.cluster import DBSCAN
 filePath = 'extracted_features.csv'  # Adjust path as needed
 data = pd.read_csv(filePath)
 
-# Rename columns for easier reference
-data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-
-# Select relevant features for clustering
-features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
+# Features
+data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Longitude', 'Latitude']
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Longitude', 'Latitude']]
 
 # Scale the features
 scaler = StandardScaler()
 featuresScaled = scaler.fit_transform(features)
 
 # Fit the DBSCAN model
-dbscan = DBSCAN(eps=0.5, min_samples=5)  # Parameters can be tuned
+dbscan = DBSCAN(algorithm='kd_tree', eps=0.1, min_samples=5)
 clusters = dbscan.fit_predict(featuresScaled)
 
 # Add cluster labels to the original dataset

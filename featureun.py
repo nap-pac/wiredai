@@ -74,6 +74,6 @@ expected_columns = ['mac', 'hour_of_day', 'day_of_week', 'times_seen', 'lat', 'l
 features_df = merged_df[expected_columns]
 
 # Write the features to a CSV file
-features_df.to_csv('extracted_features.csv', mode='a', index=False, header=False)
+features_df.to_csv('test_features3.csv', mode='a', index=False, header=False)
 
 print("Features extracted and written")

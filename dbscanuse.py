@@ -13,13 +13,13 @@ scaler_filename = 'scaler.joblib'
 scaler = joblib.load(scaler_filename)
 
 # Load new data for prediction
-filename = 'test_features.csv'  # Adjust path as needed
+filename = 'test_features2.csv'  # Adjust path as needed
 data = pd.read_csv(filename)
 
 # Preprocess the new data (assuming it has the same structure as before)
 # Rename columns
-data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
+data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Longitude', 'Latitude', 'True_Value']
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Longitude', 'Latitude']]
 
 # Save the original latitude and longitude for plotting
 original_lat_long = data[['Latitude', 'Longitude']].copy()
@@ -32,6 +32,15 @@ clusters = dbscan.fit_predict(featureScaled)
 
 # Add the cluster labels to the new data
 data['Cluster'] = clusters
+
+# Analyze the clusters
+clusterAnalysis = data.groupby('Cluster').agg(
+    DeviceCount=('MAC_Address', 'nunique'),
+    TotalTimesSeen=('Times_Seen', 'sum')
+).reset_index()
+
+# Print the cluster analysis results
+print(clusterAnalysis)
 
 # Separate data into clustered points and noise (cluster = -1)
 clustered_data = data[data['Cluster'] != -1]

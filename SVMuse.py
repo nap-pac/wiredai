@@ -8,12 +8,12 @@ one_class_svm = joblib.load('one_class_svm_model.pkl')
 scaler = joblib.load('onescaler.pkl')
 
 # Load the data for prediction (same structure as training data)
-fileName = 'test_features.csv'
+fileName = 'test_features2.csv'
 data = pd.read_csv(fileName)
 
 # Select features
-data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']
-features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Latitude', 'Longitude']]
+data.columns = ['MAC_Address', 'Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Longitude', 'Latitude']
+features = data[['Hour_of_Day', 'Day_of_Week', 'Times_Seen', 'Longitude', 'Latitude']]
 
 # Scale the new data using the loaded scaler
 features_scaled = scaler.transform(features)
